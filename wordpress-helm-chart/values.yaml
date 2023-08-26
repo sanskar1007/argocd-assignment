@@ -1,0 +1,40 @@
+wordpress:
+  namespace: wordpress
+  deployment:
+    name: wordpress
+    labels:
+      app: wordpress
+    image: wordpress:latest
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+      requests:
+        memory: "128Mi"
+        cpu: "100m"
+  pvc:
+    name: wordpress-pvc
+    storage: 1Gi
+  service:
+    name: wordpress
+    ports:
+    - name: http
+      port: 80
+      targetPort: 80
+mysql:
+  namespaceOverride: wordpress
+  primary:
+    persistence:
+      size: 1Gi
+  auth:
+    database: wordpress
+    username: wordpress
+    rootPassword: sanskar
+    password: sanskar
+redis:  
+  architecture: standalone
+  auth:
+    enabled: false
+  master:
+    persistence:
+      size: 1Gi

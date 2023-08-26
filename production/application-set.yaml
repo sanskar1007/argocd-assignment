@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: busybox-applicationset
+spec:
+  generators:
+  - list:
+      elements:
+      - name: busybox-app-1
+      - name: busybox-app-2
+      - name: busybox-app-3
+  template:
+    metadata:
+      name: '{{name}}'
+    spec:
+      project: production
+      source:
+        repoURL: git@github.com:sanskar1007/argocd-assignment.git
+        path: busybox
+        targetRevision: HEAD
+      destination:
+        server: gke_sanskar-395517_us-central1-c_gke
+        namespace: argocd
+      syncPolicy: {}

@@ -1,0 +1,11 @@
+apiVersion: v2
+name: wordpress
+description: Helm chart for wordpress Deployment
+version: 1.0.0
+dependencies:
+  - name: mysql
+    version: "9.11.0"
+    repository: "https://charts.bitnami.com/bitnami"
+  - name: redis
+    version: "17.15.4"
+    repository: "https://charts.bitnami.com/bitnami"

@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.wordpress.deployment.name }}
+  namespace: {{ .Values.wordpress.namespace }}
+  labels:
+    {{- toYaml .Values.wordpress.deployment.labels | nindent 4  }}
+spec:
+  selector:
+    matchLabels:
+      app: wordpress
+  template:
+    metadata:
+      labels:
+        app: wordpress
+    spec:
+      containers:
+      - image: {{ default "wordpress:latest" .Values.wordpress.deployment.image }}
+        name: wordpress
+        env:
+        - name: WORDPRESS_DB_HOST
+          value: {{ .Release.Name }}-mysql-0.{{ .Release.Name }}-mysql.wordpress.svc.cluster.local
+        - name: WORDPRESS_DB_USER
+          value: {{ .Values.mysql.auth.username  }}  
+        - name: WORDPRESS_DB_NAME
+          value: {{ .Values.mysql.auth.database  }}  
+        - name: WORDPRESS_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-mysql
+              key: mysql-password
+        - name: WORDPRESS_CONFIG_EXTRA 
+          value: |
+            define('WP_REDIS_HOST', '{{ .Release.Name }}-redis-master-0.{{ .Release.Name }}-redis-headless.wordpress.svc.cluster.local');
+            define('WP_REDIS_PORT', '6379');
+            define('WP_CACHE', true);
+        resources:
+          {{- toYaml .Values.wordpress.deployment.resources | nindent 10 }}
+        ports:
+        - containerPort: 80
+          name: wordpress
+        volumeMounts:
+        - name: wordpress
+          mountPath: /var/www/html
+      volumes:
+      - name: wordpress
+        persistentVolumeClaim:
+          claimName: {{ .Values.wordpress.pvc.name }}
