@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-apps
+  namespace: argocd
+spec:
+  project: production
+  source:
+    repoURL: git@github.com:sanskar1007/argocd-assignment.git
+    targetRevision: HEAD
+    path: staging
+  destination:
+    name: ""
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
