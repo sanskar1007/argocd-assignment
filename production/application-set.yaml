@@ -21,4 +21,7 @@ spec:
       destination:
         name: gke_sanskar-395517_us-central1-c_gke
         namespace: argocd
-      syncPolicy: {}
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
