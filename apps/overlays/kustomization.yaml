@@ -3,5 +3,5 @@ kind: Kustomization
 
 namePrefix: production-
 
-bases:
+resources:
 - ../base
