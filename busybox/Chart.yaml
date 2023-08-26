@@ -1,0 +1,4 @@
+apiVersion: v2
+name: busybox
+description: Helm chart for busybox Deployment
+version: 1.0.0
