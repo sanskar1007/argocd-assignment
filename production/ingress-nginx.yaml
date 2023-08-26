@@ -4,7 +4,7 @@ metadata:
   name: ingress-nginx
   namespace: argocd
 spec:
-  project: default
+  project: production
   source:
     chart: ingress-nginx
     repoURL: https://kubernetes.github.io/ingress-nginx
@@ -12,5 +12,5 @@ spec:
     helm:
       releaseName: ingress-nginx
   destination:
-    server: "https://kubernetes.default.svc"
+    server: "gke_sanskar-395517_us-central1-c_gke"
     namespace: argocd
