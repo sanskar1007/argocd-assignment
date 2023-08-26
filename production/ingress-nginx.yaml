@@ -12,5 +12,5 @@ spec:
     helm:
       releaseName: ingress-nginx
   destination:
-    server: "gke_sanskar-395517_us-central1-c_gke"
+    server: gke_sanskar-395517_us-central1-c_gke
     namespace: argocd
