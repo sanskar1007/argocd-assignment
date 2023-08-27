@@ -1,8 +1,0 @@
-nameOverride: argo-cd
-server:
-    name: server
-    extraArgs:
-     - --insecure
-    configEnabled: true
-    config:
-      admin.enabled: "true"
