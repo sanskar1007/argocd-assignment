@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: git@github.com:sanskar1007/argocd-assignment.git
     targetRevision: HEAD
-    path: apps/overlays
+    path: apps/overlays-staging
   destination:
     name: gke_argo-assignment_us-central1-c_cluster-1
     namespace: argocd
