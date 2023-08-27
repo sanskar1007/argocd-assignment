@@ -12,7 +12,7 @@ spec:
     helm:
       releaseName: ingress-nginx
   destination:
-    name: gke_sanskar-395517_us-central1-c_gke
+    name: gke_argo-assignment_us-central1-c_cluster-1
     namespace: argocd
   syncPolicy:
     automated:
