@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx-staging
+  namespace: argocd
+spec:
+  project: staging
+  source:
+    chart: ingress-nginx
+    repoURL: https://kubernetes.github.io/ingress-nginx
+    targetRevision: 4.7.1
+    helm:
+      releaseName: ingress-nginx
+  destination:
+    name: gke_sanskar-395517_us-central1-c_gke
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

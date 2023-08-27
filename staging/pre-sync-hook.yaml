@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: pre-sync-hook-staging
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      containers:
+      - name: slack-notification
+        image: curlimages/curl
+        command:
+          - "curl"
+          - "-X"
+          - "POST"
+          - "https://api.flock.com/hooks/sendMessage/b53e7519-6dc4-41db-bdf6-93e60069c812"
+          - "-H"
+          - "Content-Type: application/json"
+          - "-d"
+          - '{"text": "App is about to sync in staging"}'
+      restartPolicy: Never
+  backoffLimit: 2
