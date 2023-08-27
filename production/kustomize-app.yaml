@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: git@github.com:sanskar1007/argocd-assignment.git
     targetRevision: HEAD
-    path: apps/overlays-prod
+    path: apps/overlays/prod
   destination:
     name: gke_sanskar-395517_us-central1-c_gke
     namespace: argocd
